@@ -2,10 +2,13 @@
 import "./styles/theme.css";
 import "./styles/global.css";
 import { Home } from "./pages/Home";
-import { useState } from "react";
+import { TaskContextProvider } from "./contexts/TaskContext/TaskContextProvider";
 
 export default function App(){
-  const [state, setState ] = useState(0);
 
-  return <Home />;
+  return (
+  <TaskContextProvider>
+    <Home />;
+  </TaskContextProvider>
+  )
 }

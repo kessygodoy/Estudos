@@ -25,7 +25,7 @@ export function Menu() {
   }
 
   useEffect(() => {
-    console.log("Theme mudou para " + theme, Date.now());
+    // console.log("Theme mudou para " + theme, Date.now());
     document.documentElement.setAttribute(
       "data-theme",
       theme
