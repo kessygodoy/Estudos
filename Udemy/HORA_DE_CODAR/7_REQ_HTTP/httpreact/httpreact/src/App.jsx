@@ -1,35 +1,45 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
+  // 4 - Custom hook
+  import { useFetch } from './hooks/useFetch'
+
+  const url = "http://localhost:3000/products"
+
 function App() {
   const [products, setProducts] = useState([])
+
+  //4 - custom hook
+  const {data: items} = useFetch(url)
+
+  console.log(items)
 
   const [name, setName] = useState("")
   const [price, setPrice] = useState("")
 
-  const url = "http://localhost:3000/products"
+  // // 1 - resgatando dados
+  // useEffect(() => {
 
-  // 1 - resgatando dados
-  useEffect(() => {
+  //   async function fetchData() {
+  //   const res = await fetch(url)
 
-    async function fetchData() {
-    const res = await fetch(url)
+  //   const data = await res.json()
 
-    const data = await res.json()
+  //   setProducts(data)
+  //   }
 
-    setProducts(data)
-    }
-
-    fetchData()
-  }, [])
+  //   fetchData()
+  // }, [])
 
   // 2 - addicionando dados
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     const product = {
       name,
-      price
+      price,
+      key: Math.random() * 1000
     }
 
     const res = await fetch(url, {
@@ -40,7 +50,10 @@ function App() {
       body: JSON.stringify(product)
     })
 
+    setProducts([...products , product])
 
+    setName("")
+    setPrice("")
     }
   
   console.log("produtos: " + products)
@@ -49,7 +62,7 @@ function App() {
     <div className="App">
       <h1>Lista de produtos:</h1>
       <ul>
-        {products.map(product => (
+        {items && items.map(product => (
           <li key={product.id}>{product.name} - R$: {product.price}</li>
         ))}
       </ul>
