@@ -10,7 +10,7 @@ function App() {
   const [products, setProducts] = useState([])
 
   //4 - custom hook
-  const {data: items} = useFetch(url)
+  const {data: items, httpConfig} = useFetch(url)
 
   console.log(items)
 
@@ -42,16 +42,18 @@ function App() {
       key: Math.random() * 1000
     }
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(product)
-    })
+    // const res = await fetch(url, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify(product)
+    // })
 
-    setProducts([...products , product])
+    // setProducts([...products , product])
 
+    // 5 - refatorando o post
+    httpConfig(product, "POST")
     setName("")
     setPrice("")
     }
