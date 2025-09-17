@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 
 const Home = () => {
   // 3 - carregamento de dados
-  const url = "http://localhost:3000/products"
+   const url = "http://localhost:3000/products"
 
   const {data: items, loading, error} = useFetch(url)
   return (
@@ -16,6 +16,7 @@ const Home = () => {
       <ul className='products'>
         {items && items.map((item) => (
           <li key={item.id}>
+            <h1>{item.id}</h1>
             <h3>{item.name}</h3>
             <p>R$: {item.price}</p>
             <Link to={`/products/${item.id}`}>Ver mais</Link> 
