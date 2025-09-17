@@ -1,19 +1,49 @@
 {
-    "products": [
-        {
-            "id": 1,
-            "name": "Product A",
-            "price": 19.99
-        },
-        {
-            "id": 2,
-            "name": "Product B",
-            "price": 29.99
-        },
-        {
-            "id": 3,
-            "name": "Product C",
-            "price": 39.99
-        }
-    ]
+  "products": [
+    {
+      "id": "1",
+      "name": "Product A",
+      "price": 19.99
+    },
+    {
+      "id": "2",
+      "name": "Product B",
+      "price": 29.99
+    },
+    {
+      "id": "3",
+      "name": "Product C",
+      "price": 39.99
+    },
+    {
+      "id": "31a5",
+      "name": "Teste",
+      "price": "12"
+    },
+    {
+      "id": "4022",
+      "name": "Capa de chuva",
+      "price": "40.40"
+    },
+    {
+      "id": "fd34",
+      "name": "Capa de chuva 2",
+      "price": "400.40"
+    },
+    {
+      "id": "45f8",
+      "name": "a",
+      "price": "2"
+    },
+    {
+      "id": "ba72",
+      "name": "aaaaa",
+      "price": "4"
+    },
+    {
+      "id": "8145",
+      "name": "Celta",
+      "price": "15000"
+    }
+  ]
 }
