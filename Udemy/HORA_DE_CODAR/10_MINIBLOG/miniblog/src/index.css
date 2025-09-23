@@ -58,6 +58,7 @@ input, textarea{
 box-sizing: border-box;
 border: none;
 border-bottom: 1px solid #ccc;
+color: #fff;
 padding: .8em 0;
 background-color: transparent;
 margin-bottom: 1em;
