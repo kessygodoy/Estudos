@@ -8,7 +8,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
   
-    const { createUser, error: authError, loading } = useAuthentication();
+    const { login, error: authError, loading } = useAuthentication();
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -16,12 +16,11 @@ const Login = () => {
       setError("");
   
       const user = {
-        displayName,
         email,
         password,
       };
  
-      const res = await createUser(user);
+      const res = await login(user);
   
       console.log(user);
     };
