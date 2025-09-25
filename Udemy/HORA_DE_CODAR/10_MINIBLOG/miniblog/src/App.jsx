@@ -16,6 +16,8 @@ import { useAuthentication } from "./hooks/useAuthentication.jsx";
 
 //context
 import { AuthProvider } from "./context/AuthContext.jsx";
+import CreatePost from "./pages/CreatePost/CreatePost.jsx";
+import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 
 function App() {
 
@@ -47,6 +49,8 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/register" element={<Register />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/posts/create" element={<CreatePost />} />
+              <Route path="/dashboard" element={<Dashboard />} />
             </Routes>
           </div>
           <Footer />
