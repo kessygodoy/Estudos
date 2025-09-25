@@ -41,7 +41,9 @@ const Register = () => {
 
   return (
     <div className={styles.register}>
-      <h1>Cadastre-se para postar</h1>
+      <h1>Cadastre-se</h1>
+                  <p>Cadastre-se para poder utilizar o sistema.</p>
+
       <form className={styles.register_form} onSubmit={handleSubmit}>
         <label>
           <span>Nome:</span>

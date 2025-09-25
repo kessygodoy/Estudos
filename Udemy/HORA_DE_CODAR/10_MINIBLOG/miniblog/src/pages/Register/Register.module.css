@@ -6,9 +6,9 @@
     width: 100%;
 }
 
-.register h1 {
-    color: #fff;
+.register p {
     margin-bottom: 2em;
+    color: #444;
 }
 
 .register_form{
