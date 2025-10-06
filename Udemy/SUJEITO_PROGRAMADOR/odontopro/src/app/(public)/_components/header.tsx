@@ -18,15 +18,12 @@ export default function Header() {
     const { data: session, status } = useSession();
     const [isOpen, setIsOpen] = useState(false);
 
-    console.log(session)
-    // console.log(status)
-
     const navItems = [
         { href: "#profissionais", label: "Profissionais" },
     ]
 
     async function handleLogin() {
-        await handleRegister("google")
+        await handleRegister("github")
     }
 
     const NavLinks = () => (
