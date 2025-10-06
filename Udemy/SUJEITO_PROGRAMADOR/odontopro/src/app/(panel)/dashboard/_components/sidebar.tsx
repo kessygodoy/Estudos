@@ -65,37 +65,37 @@ export function SidebarDashboard({ children }: { children: React.ReactNode }) {
                 {isCollapsed && (
                     <nav className="flex flex-col gap-1 overflow-hidden mt-2">
                         <SidebarLink
-                                href="/dashboard"
-                                label="Agendamentos"
-                                pathname={pathname}
-                                isCollapsed={isCollapsed}
-                                icon={<CalendarDays className="w-5 h-5" />}
-                            />
+                            href="/dashboard"
+                            label="Agendamentos"
+                            pathname={pathname}
+                            isCollapsed={isCollapsed}
+                            icon={<CalendarDays className="w-5 h-5" />}
+                        />
 
-                            <SidebarLink
-                                href="/dashboard/services"
-                                label="Serviços"
-                                pathname={pathname}
-                                isCollapsed={isCollapsed}
-                                icon={<Folder className="w-5 h-5" />}
-                            />
-                            <SidebarLink
-                                href="/dashboard/profile"
-                                label="Profile"
-                                pathname={pathname}
-                                isCollapsed={isCollapsed}
-                                icon={<Settings className="w-5 h-5" />}
-                            />
-                            <SidebarLink
-                                href="/dashboard/plans"
-                                label="Planos"
-                                pathname={pathname}
-                                isCollapsed={isCollapsed}
-                                icon={<Banknote className="w-5 h-5" />}
-                            />
-                        </nav>
+                        <SidebarLink
+                            href="/dashboard/services"
+                            label="Serviços"
+                            pathname={pathname}
+                            isCollapsed={isCollapsed}
+                            icon={<Folder className="w-5 h-5" />}
+                        />
+                        <SidebarLink
+                            href="/dashboard/profile"
+                            label="Profile"
+                            pathname={pathname}
+                            isCollapsed={isCollapsed}
+                            icon={<Settings className="w-5 h-5" />}
+                        />
+                        <SidebarLink
+                            href="/dashboard/plans"
+                            label="Planos"
+                            pathname={pathname}
+                            isCollapsed={isCollapsed}
+                            icon={<Banknote className="w-5 h-5" />}
+                        />
+                    </nav>
 
-                    )}
+                )}
 
                 <Collapsible open={!isCollapsed}>
                     <CollapsibleContent>
@@ -153,6 +153,7 @@ export function SidebarDashboard({ children }: { children: React.ReactNode }) {
                         <div className="flex items-center gap-4">
                             <SheetTrigger asChild>
                                 <Button variant="outline" size={"icon"} className="md:hidden"
+                                    onClick={() => setIsCollapsed(false)}
                                 >
                                     <List className="w-5 h-5" />
                                 </Button>
