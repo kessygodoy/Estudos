@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://ceo74iaymc5ls"]
+
+[ext_resource type="Script" path="res://interface/inventory/inventory_slot.gd" id="1_74vvy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7irwq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_xhigj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ftul1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pv38b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_01st6"]
+
+[node name="InventorySlot" type="Button"]
+custom_minimum_size = Vector2(20, 20)
+offset_right = 20.0
+offset_bottom = 20.0
+theme_override_styles/normal = SubResource("StyleBoxEmpty_7irwq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_xhigj")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_ftul1")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_pv38b")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_01st6")
+flat = true
+script = ExtResource("1_74vvy")
+
+[node name="SlotTexture" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5

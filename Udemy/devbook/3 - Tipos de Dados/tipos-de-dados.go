@@ -1,56 +1,59 @@
 package main
 
+import (
+	"errors"
+	"fmt"
+)
+
 func main() {
-	numero := 999999999999999999
-	var numeroint8 int8 = 127
-	var numeroint16 int16 = 32767
-	var numeroint32 int32 = 2147483647
-	var numeroint64 int64 = 9223372036854775807
-	println(numeroint8)
-	println(numeroint16)
-	println(numeroint32)
-	println(numeroint64)
-	println(numero)
+	// NÚMEROS INTERIOS
+	var numero int64 = -100000000000
+	fmt.Println(numero)
 
-	var numero2 uint = 10000
-	println(numero2)
+	var numero2 uint32 = 10000
+	fmt.Println(numero2)
 
-	//alias
-	//INT32 = RUNE
-	var numero3 rune = 1000
-	println(numero3)
+	// alias
+	// INT32 = RUNE
+	var numero3 rune = 12456
+	fmt.Println(numero3)
 
-	//BYTE = UINT8
-	var numero4 byte = 100
-	println(numero4)
+	// BYTE = UINT8
+	var numero4 byte = 123
+	fmt.Println(numero4)
+	// FIM NÚMEROS INTEIROS
+
+	// NÚMEROS REAIS
 
 	var numeroReal1 float32 = 123.45
-	println(numeroReal1)
+	fmt.Println(numeroReal1)
 
-	var numeroReal2 float64 = 123
-	println(numeroReal2)
+	var numeroReal2 float64 = 1230000000.45
+	fmt.Println(numeroReal2)
 
 	numeroReal3 := 12345.67
-	println(numeroReal3)
+	fmt.Println(numeroReal3)
 
+	// FIM NÚMEROS REAIS
+
+	// STRINGS
 	var str string = "Texto"
-	println(str)
+	fmt.Println(str)
 
 	str2 := "Texto2"
-	println(str2)
+	fmt.Println(str2)
 
-	char := 'B'
-	println(char)
+	char := 'A'
+	fmt.Println(char)
 
-	var texto int16
-	println(texto)
+	// FIM STRINGS
+
+	texto := 5
+	fmt.Println(texto)
 
 	var booleano1 bool
-	println(booleano1)
+	fmt.Println(booleano1)
 
-	var booleano2 bool = true
-	println(booleano2)
-
-	var erro error
-	println(erro)
+	var erro error = errors.New("Erro interno")
+	fmt.Println(erro)
 }

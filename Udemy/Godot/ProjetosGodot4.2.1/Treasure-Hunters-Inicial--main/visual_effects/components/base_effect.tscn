@@ -1,0 +1,36 @@
+[gd_scene load_steps=7 format=3 uid="uid://dtiftcpbg006s"]
+
+[ext_resource type="Texture2D" uid="uid://cu4rw4kqdg1t0" path="res://visual_effects/pink_star_attack/1.png" id="1_3jgou"]
+[ext_resource type="Script" path="res://visual_effects/components/base_effect.gd" id="1_ysq7n"]
+[ext_resource type="Texture2D" uid="uid://d257vl2vkdq05" path="res://visual_effects/pink_star_attack/2.png" id="2_btvpp"]
+[ext_resource type="Texture2D" uid="uid://clnmuc52m3q7m" path="res://visual_effects/pink_star_attack/3.png" id="3_18h6x"]
+[ext_resource type="Texture2D" uid="uid://ceblv85vfesh3" path="res://visual_effects/pink_star_attack/4.png" id="4_eug1s"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yacrv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_3jgou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_btvpp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_18h6x")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_eug1s")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="BaseEffect" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_yacrv")
+autoplay = "default"
+frame = 3
+frame_progress = 1.0
+script = ExtResource("1_ysq7n")
+
+[connection signal="animation_finished" from="." to="." method="_on_animation_finished"]

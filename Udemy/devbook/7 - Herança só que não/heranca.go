@@ -1,5 +1,7 @@
 package main
 
+import "fmt"
+
 type pessoa struct {
 	nome      string
 	sobrenome string
@@ -14,11 +16,11 @@ type estudante struct {
 }
 
 func main() {
-	println("Olá Mundo!")
+	fmt.Println("Herança")
 
 	p1 := pessoa{"João", "Pedro", 20, 178}
-	println(p1.nome)
+	fmt.Println(p1)
 
 	e1 := estudante{p1, "Engenharia", "USP"}
-	println(e1.faculdade)
+	fmt.Println(e1.altura)
 }

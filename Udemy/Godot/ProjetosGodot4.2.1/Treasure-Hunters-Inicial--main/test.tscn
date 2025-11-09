@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://fojvpmqcqhb0"]
+
+[ext_resource type="Texture2D" uid="uid://bxedygqu1xsd6" path="res://icon.svg" id="1_a20vj"]
+[ext_resource type="Texture2D" uid="uid://bgrlskmqfawqt" path="res://character/without_sword/fall/1.png" id="2_43nhr"]
+
+[node name="Test" type="Node2D"]
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(306, 182)
+texture = ExtResource("1_a20vj")
+
+[node name="1" type="Sprite2D" parent="."]
+position = Vector2(164, 216)
+texture = ExtResource("2_43nhr")

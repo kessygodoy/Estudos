@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://resources/normal_decoration_tile.tres" type="TileSet" id=1]
+[ext_resource path="res://resources/small_decoration_tile.tres" type="TileSet" id=2]
+[ext_resource path="res://scenes/env/background.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/floor.tres" type="TileSet" id=4]
+[ext_resource path="res://scenes/env/mask.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scripts/management/level.gd" type="Script" id=7]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+glow_enabled = true
+glow_hdr_threshold = 1.5
+
+[node name="Level" type="Node2D"]
+script = ExtResource( 7 )
+
+[node name="LevelDesign" type="Node2D" parent="."]
+
+[node name="Floor" type="TileMap" parent="LevelDesign"]
+tile_set = ExtResource( 4 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 131075, 3, 0, 131076, 3, 2, 196611, 3, 131072, 196612, 3, 131074, 327680, 3, 0, 327681, 3, 1, 327682, 3, 1, 327683, 3, 1, 327684, 3, 1, 327685, 3, 1, 327686, 3, 1, 327687, 3, 1, 327688, 3, 1, 327689, 3, 1, 327690, 3, 1, 327691, 3, 1, 327692, 3, 1, 327693, 3, 1, 327694, 3, 1, 327695, 3, 1, 327696, 3, 2, 327701, 3, 0, 327702, 3, 1, 327703, 3, 1, 327704, 3, 1, 327705, 3, 1, 327706, 3, 1, 327707, 3, 1, 327708, 3, 1, 327709, 3, 1, 327710, 3, 2, 393216, 3, 65536, 393217, 3, 65537, 393218, 3, 65537, 393219, 3, 65537, 393220, 3, 65537, 393221, 3, 65537, 393222, 3, 65537, 393223, 3, 65537, 393224, 3, 65537, 393225, 3, 65537, 393226, 3, 65537, 393227, 3, 65537, 393228, 3, 65537, 393229, 3, 65537, 393230, 3, 65537, 393231, 3, 65537, 393232, 3, 65538, 393237, 3, 65536, 393238, 3, 65537, 393239, 3, 65537, 393240, 3, 65537, 393241, 3, 65537, 393242, 3, 65537, 393243, 3, 65537, 393244, 3, 65537, 393245, 3, 65537, 393246, 3, 65538, 458752, 3, 131072, 458753, 3, 131073, 458754, 3, 131073, 458755, 3, 131073, 458756, 3, 131073, 458757, 3, 131073, 458758, 3, 131073, 458759, 3, 131073, 458760, 3, 131073, 458761, 3, 131073, 458762, 3, 131073, 458763, 3, 131073, 458764, 3, 131073, 458765, 3, 131073, 458766, 3, 131073, 458767, 3, 131073, 458768, 3, 131074, 458773, 3, 131072, 458774, 3, 131073, 458775, 3, 131073, 458776, 3, 131073, 458777, 3, 131073, 458778, 3, 131073, 458779, 3, 131073, 458780, 3, 131073, 458781, 3, 131073, 458782, 3, 131074, 851990, 3, 0, 851991, 3, 1, 851992, 3, 1, 851993, 3, 1, 851994, 3, 1, 851995, 3, 1, 851996, 3, 1, 851997, 3, 1, 851998, 3, 2, 917526, 3, 65536, 917527, 3, 65537, 917528, 3, 65537, 917529, 3, 65537, 917530, 3, 65537, 917531, 3, 65537, 917532, 3, 65537, 917533, 3, 65537, 917534, 3, 65538, 983062, 3, 131072, 983063, 3, 131073, 983064, 3, 131073, 983065, 3, 131073, 983066, 3, 131073, 983067, 3, 131073, 983068, 3, 131073, 983069, 3, 131073, 983070, 3, 131074 )
+
+[node name="NormalDecorationTile" type="TileMap" parent="LevelDesign"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 32, 32 )
+format = 1
+tile_data = PoolIntArray( 262149, 1, 0, 262151, 0, 0, 262153, 0, 0, 262157, 5, 0, 262158, 4, 0, 262167, 0, 0, 262170, 0, 0, 262173, 3, 0, 720924, 2, 0, 786457, 3, 0 )
+
+[node name="SmallDecorationTile" type="TileMap" parent="LevelDesign"]
+tile_set = ExtResource( 2 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 589824, 0, 0, 589830, 1, 0, 589831, 1, 0, 589847, 0, 0, 589849, 1, 0, 589856, 0, 0, 589857, 2, 0, 589868, 2, 0, 589873, 0, 0, 589875, 0, 0, 589877, 2, 0, 589879, 1, 0, 589885, 0, 0, 1638444, 0, 0, 1638446, 0, 0, 1638447, 0, 0, 1638448, 1, 0, 1638454, 0, 0, 1638461, 1, 0 )
+
+[node name="Background" parent="." instance=ExtResource( 3 )]
+can_process = false
+
+[node name="Mask" parent="." instance=ExtResource( 5 )]
+scale = Vector2( 0.997323, 1.00943 )
+color = Color( 0.027451, 0.027451, 0.027451, 1 )
+
+[node name="Player" parent="." instance=ExtResource( 6 )]
+position = Vector2( 33, 150 )
+wall_jump_speed = -150
+wall_gravity = 115
+wall_impulse_speed = 500
+
+[node name="Enviroment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )

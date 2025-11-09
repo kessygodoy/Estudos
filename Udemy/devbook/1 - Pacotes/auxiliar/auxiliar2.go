@@ -1,5 +1,7 @@
 package auxiliar
 
+import "fmt"
+
 func escrever2() {
-	println("Escrevendo pela função escrever2")
+	fmt.Println("Escrevendo pela função escrever2")
 }
