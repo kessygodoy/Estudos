@@ -20,7 +20,8 @@ export default function Home() {
       <Link href={"/dashboard"} >Ir a Dashboard</Link>
       {/* Aula 8 - useRouter */}
       <BotaoRedirect />
-
+      {/* Aula 9 - Server side redirect */}
+      <Link href="/profile">Ir para meu perfil</Link>
     </div>
   );
 }
