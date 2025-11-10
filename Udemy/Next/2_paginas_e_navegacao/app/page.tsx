@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import BotaoRedirect from "@/components/BotaoRedirect";
+
 
 export default function Home() {
   return (
@@ -16,6 +18,9 @@ export default function Home() {
       <Link href={"/produtos/categorias/roupas"} >Ir a categoria de Roupas</Link>
       {/* Aula 7 - Layout aninhados */}
       <Link href={"/dashboard"} >Ir a Dashboard</Link>
+      {/* Aula 8 - useRouter */}
+      <BotaoRedirect />
+
     </div>
   );
 }
