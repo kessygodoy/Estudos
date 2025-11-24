@@ -1,5 +1,6 @@
-export default function TodoPage() {
+export default function TodosPage() {
 
+    //formData => useState
     const addTodo = async (formData) => {
         "use server"
 
@@ -9,29 +10,34 @@ export default function TodoPage() {
     return (
         <div className="max-w-md mx-auto mt-10">
             <h1 className="text-2xl font-bold text-center mb-6">Criar nova tarefa</h1>
-            <form action={addTodo} className="flex flex-col gap-4 p-4 bg-gray-900 text-white shadow-lg rounded-lg">
-                <label htmlFor="titulo" className="block text-sm font-medium text-gray-400">Título
+            <form action={addTodo} className="flex flex-col gap-4 p-4 bg-gray-800 shadow-lg rounded-lg">
+                <label
+                    htmlFor="titulo"
+                    className="block text-sm font-medium text-gray-400">
+                    Título
                     <input
                         id="titulo"
                         name="titulo"
-                        type="text"
-                        placeholder="Insira o título"
+                        placeholder="Insira o titulo"
                         required
-                        className="mt-1 px-4 border border-gray-700 rounded-md w-full"
-                    />
+                        type="text"
+                        className="mt-1 px-4 py-2 border border-gray-600 rounded-md w-full" />
                 </label>
-                <label htmlFor="descricao" className="block text-sm font-medium text-gray-400">Descrição
+                <label
+                    htmlFor="descricao"
+                    className="block text-sm font-medium text-gray-400">
+                    Descrição
                     <textarea
                         id="descricao"
                         name="descricao"
-                        type="text"
                         placeholder="Descreva a tarefa"
                         required
-                        className="mt-1 px-4 border border-gray-700 rounded-md w-full h-32"
-                    />
+                        type="text"
+                        className="mt-1 px-4 py-2 border border-gray-600 rounded-md w-full h-32" />
                 </label>
-                <button type="submit" className="bg-red-900 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                >Criar tarefa</button>
+                <button type="submit" className="
+                px-4 py-2 bg-blue-500 text-white font-semibold rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50
+                ">Criar Todo</button>
             </form>
         </div>
     );
