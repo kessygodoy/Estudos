@@ -1,55 +1,32 @@
-import './App.css';
 import { useState, useEffect } from 'react';
+import './style.css'
+//https://sujeitoprogramador.com/rn-api/?api=posts
 
 function App() {
-  const [input, setInput] = useState('');
-  const [tarefas, setTarefas] = useState(
-    JSON.parse(localStorage.getItem('@tarefa'))
-  );
+  const [nutri, setNutri] = useState([]);
 
   useEffect(() => {
-    const tarefasStorage = localStorage.getItem('@tarefa');
-
-    if (tarefasStorage) {
-      setTarefas(JSON.parse(tarefasStorage));
+    async function loadApi() {
+      let url = "https://sujeitoprogramador.com/rn-api/?api=posts"
+      const posts = await fetch(url)
+      setNutri(await posts.json())
     }
 
-  }, []);
-
-
-  useEffect(() => {
-    localStorage.setItem('@tarefa', JSON.stringify(tarefas));
-  }, [tarefas]);
-
-  function handleRegister(event) {
-    event.preventDefault();
-    setTarefas([...tarefas, input]);
-    setInput('');
-  }
+    loadApi();
+  }, [])
 
   return (
-    <div className="App App-header">
-      <h1>Cadastrando tarefa</h1>
-      <form onSubmit={handleRegister}>
-        <label>Nome da tarefa:
-          <br />
-          <input
-            type="text"
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-          />
-          <button type='submit'>Adicionar</button>
-        </label>
-
-      </form>
-      <p>Tarefas</p>
-      <div>
-
-        {tarefas.map((tarefa, index) => (
-          <p key={index}>{index + 1} - {tarefa}</p>
-        ))}
-      </div>
-    </div >
+    <div className=''>
+      <header>React NUTRI</header>
+      {nutri.map((item) => (
+        <article key={item.id} className='post'>
+          <strong className='titulo'>{item.titulo}</strong>
+          <img src={item.capa} className='capa' alt={item.titulo} />
+          <p className='subtitulo'>{item.subtitulo}</p>
+          <a href="" className='botao'>Acessar</a>
+        </article>
+      ))}
+    </div>
   );
 }
 
