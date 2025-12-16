@@ -4,12 +4,12 @@ import "./header.css";
 function Header() {
     return (
         <header>
-            <Link className="logo" href="/">
+            <Link className="logo" to="/">
                 <h3>
                     Prime filmes
                 </h3>
             </Link>
-            <Link className="favoritos" href="/favoritos">Meus filmes</Link>
+            <Link className="favoritos" to="/favoritos">Meus filmes</Link>
         </header>
     );
 }
