@@ -5,7 +5,9 @@ function Home() {
         <div>
             <h1>Bem vindo a pagina HOME</h1>
             <span>Kessy Adhlan Godoy</span>
-            <br /><br />
+
+
+
 
 
         </div>
