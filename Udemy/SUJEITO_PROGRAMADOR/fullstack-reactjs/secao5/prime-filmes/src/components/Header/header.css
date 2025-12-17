@@ -14,10 +14,10 @@ header {
   font-weight: bold;
   cursor: pointer;
   font-size: 30px;
+  text-decoration: none;
 }
 
 .favoritos {
-  /* text-decoration: none; */
   background-color: #fff;
   color: #222;
   font-weight: bold;
@@ -25,4 +25,6 @@ header {
   font-size: 30px;
   border-radius: 5px;
   padding: 0px 10px;
+    text-decoration: none;
+
 }
