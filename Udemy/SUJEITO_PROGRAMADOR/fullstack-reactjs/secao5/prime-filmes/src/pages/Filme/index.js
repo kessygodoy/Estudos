@@ -32,6 +32,23 @@ function Filme() {
         }
     }, [navigate, id])
 
+    function salvarFilme() {
+        const filmes = localStorage.getItem("filmes");
+        let filmesParse = JSON.parse(filmes) || [];
+
+        const hasfilme = filmesParse.some((f) => f.id === filme.id);
+
+        if (hasfilme) {
+            alert("Filme ja salvo");
+            return;
+        }
+
+        filmesParse.push(filme);
+        localStorage.setItem("filmes", JSON.stringify(filmesParse));
+        alert("Filme salvo com sucesso");
+        navigate("/favoritos");
+    }
+
     if (loading) {
         return (
             <div className="loading">
@@ -43,13 +60,13 @@ function Filme() {
     return (
         <div className="container"  >
             <strong>{filme.title}</strong>
-            <img clasName="backdrop" src={`https://image.tmdb.org/t/p/w500/${filme.backdrop_path}`} alt={filme.title} />
+            <img className="backdrop" src={`https://image.tmdb.org/t/p/w500/${filme.backdrop_path}`} alt={filme.title} />
 
             <p>{filme.overview}</p>
             <p>Lançamento: {filme.release_date}</p>
             <strong>Nota: {filme.vote_average} / 10</strong>
             <div className="area-buttons">
-                <button>Salvar</button>
+                <button onClick={salvarFilme}>Salvar</button>
                 <button>
                     <a href={`https://www.youtube.com/results?search_query=trailer+filme+${filme.title}`} target="_blank">Trailer</a>
                 </button>
