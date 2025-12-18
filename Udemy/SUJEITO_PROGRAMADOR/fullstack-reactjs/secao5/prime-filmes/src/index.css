@@ -26,9 +26,12 @@ body{
     /* margin-top: 14px; */
 }
 .container{
-      background-color: #151515;
+    max-width: 800px;
+    margin: 14 auto;
+
+    background-color: #151515;
     border-radius: 10px;
-    width: 90%;
-    margin: auto;
     padding: 14px;
+    gap: 14px;
 }
+

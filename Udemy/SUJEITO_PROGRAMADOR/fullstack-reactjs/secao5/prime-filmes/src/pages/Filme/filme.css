@@ -8,14 +8,47 @@
     text-align: justify;
     padding: 14px;
     gap: 14px;
-
-
-}   
-.container img{
-    width: 500px;
-    height: 500px;
-    object-fit: cover;
-    border-radius: 10px;
-     margin: 14px;
+    
 }
 
+.backdrop{
+  
+}
+
+.container strong{
+    text-align: center;
+    font-size: 22px;
+    display: block;
+    color: #ddd;
+}
+
+.area-buttons button{
+    display: flex;
+    gap: 14px;
+    outline: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s;
+}
+.area-buttons a{
+    text-decoration: none;
+    color: #222;
+    width: 100%;
+    height: 100%;
+    transition: .3s;
+}
+.area-buttons button:hover{
+    color: #ddd;
+    background-color: #222;
+    border-radius: 5px;
+    transition: .3s;
+}
+.area-buttons a:hover{
+    color: #ddd;
+transition: .3s;
+}
+.area-buttons{
+    display: flex;
+    gap: 14px;
+}
