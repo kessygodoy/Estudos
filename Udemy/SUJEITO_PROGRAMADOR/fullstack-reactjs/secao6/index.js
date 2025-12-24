@@ -7,6 +7,10 @@ server.use(express.json())
 
 const cursos = ['Node.js', 'React', 'React Native']
 
+server.use((req, res) => {
+    console.log("Recebemos uma requisição")
+})
+
 server.get('/cursos', (req, res) => {
     return res.json(cursos)
 })
