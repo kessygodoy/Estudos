@@ -10,9 +10,7 @@ class CreateUserControlller {
 
         const createUserService = new CreateUserService();
 
-        const passwordHash = await hash(password, 10);
-
-        const user = await createUserService.execute({name, email, password: passwordHash});
+        const user = await createUserService.execute({name, email, password});
 
         return res.json(user);
     }
