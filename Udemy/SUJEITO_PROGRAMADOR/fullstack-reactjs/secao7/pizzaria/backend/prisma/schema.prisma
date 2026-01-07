@@ -39,7 +39,7 @@ model Product{
   id String @id @default(uuid())
   name String
   description String
-  price Int
+  price Int // Centavos
   banner String
   disabled Boolean @default(false)
   category_id String

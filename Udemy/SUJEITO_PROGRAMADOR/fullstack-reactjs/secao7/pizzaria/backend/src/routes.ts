@@ -9,16 +9,25 @@ import { isAdmin } from "./middlewares/isAdmin";
 import { CreateCategoryController } from "./controllers/category/CreateCategorytController";
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
 import { createCategorySchema } from "./schemas/categorySchema";
+import { CreateProductController } from "./controllers/product/CreateProductController";
 
 const router = Router();
 
 //Rotas users
-router.post("/users", validateSchema(createUserSchema), new CreateUserControlller().handle)
-router.post("/session", validateSchema(authUserSchema), new AuthUserController().handle)
+router.post("/users", validateSchema(createUserSchema), 
+    new CreateUserControlller().handle)
+router.post("/session", validateSchema(authUserSchema), 
+    new AuthUserController().handle)
 router.get("/me", isAuthenticated, new DetailUserController().handle)
 
 //Rotas categories
-router.post("/category", isAuthenticated, isAdmin, validateSchema(createCategorySchema), new CreateCategoryController().handle)
-router.get("/category", isAuthenticated, new ListCategoryController().handle)
+router.post("/category", isAuthenticated, isAdmin, validateSchema(createCategorySchema), 
+    new CreateCategoryController().handle)
+router.get("/category", isAuthenticated, 
+    new ListCategoryController().handle)
+
+//Rotas products
+router.post("/product", isAuthenticated, isAdmin, 
+    new CreateProductController().handle)
 
 export { router }
