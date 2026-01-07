@@ -5,6 +5,8 @@ import { createUserSchema, authUserSchema } from "./schemas/userSchema";
 import { AuthUserController } from "./controllers/user/AuthUserController";
 import { DetailUserController } from "./controllers/user/DetailUserController";
 import { isAuthenticated } from "./middlewares/isAuthenticated";
+import { isAdmin } from "./middlewares/isAdmin";
+import { CreateCategoryController } from "./controllers/category/CreateCategorytController";
 
 const router = Router();
 
@@ -12,5 +14,8 @@ const router = Router();
 router.post("/users", validateSchema(createUserSchema), new CreateUserControlller().handle)
 router.post("/session", validateSchema(authUserSchema), new AuthUserController().handle)
 router.get("/me", isAuthenticated, new DetailUserController().handle)
+
+//Rotas categories
+router.post("/category", isAuthenticated, isAdmin, new CreateCategoryController().handle)
 
 export { router }
