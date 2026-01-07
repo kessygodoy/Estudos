@@ -5,9 +5,9 @@ class ListCategoryService {
         try {
             const categories = await prismaClient.category.findMany({
                 select: {
-                    // id: true,
+                    id: true,
                     name: true,
-                    // createdAt: true
+                    createdAt: true
                 },
                 orderBy: {
                     createdAt: 'desc'
