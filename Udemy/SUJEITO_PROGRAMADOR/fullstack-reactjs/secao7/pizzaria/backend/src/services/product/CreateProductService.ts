@@ -43,7 +43,7 @@ class CreateProductService {
             const bufferStream = Readable.from(imageBuffer)
             bufferStream.pipe(uploadStream)
             })
-            console.log(result)
+            bannerUrl = result.secure_url
             
         } catch (error) {
             console.log(error)
@@ -51,6 +51,26 @@ class CreateProductService {
         }
         // salvar a url da imagem e os dados no banco como um novo produto
 
+        const product = await prismaClient.product.create({
+            data: {
+                name,
+                price: parseInt(price),
+                description,
+                category_id,
+                banner: bannerUrl
+            },
+            select: {
+                id: true,
+                name: true,
+                price: true,
+                description: true,
+                category_id: true,
+                banner: true,
+                createdAt: true
+            }
+        })
+
+        return product
         
     }
 }
