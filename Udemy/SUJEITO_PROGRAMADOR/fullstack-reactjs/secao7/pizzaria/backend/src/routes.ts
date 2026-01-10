@@ -12,7 +12,10 @@ import { CreateCategoryController } from "./controllers/category/CreateCategoryt
 import { ListCategoryController } from "./controllers/category/ListCategoryController";
 import { createCategorySchema } from "./schemas/categorySchema";
 import { CreateProductController } from "./controllers/product/CreateProductController";
+import { ListProductController } from "./controllers/product/ListProductController";
 import { createProductSchema } from "./schemas/productSchema";
+import { DeleteProductController } from "./controllers/product/DeleteProductController";
+import { ListProductByCategoryController } from "./controllers/product/ListProductByCategoryController";
 
 const router = Router();
 const upload = multer(uploadConfig);
@@ -31,7 +34,14 @@ router.get("/category", isAuthenticated,
     new ListCategoryController().handle)
 
 //Rotas products
-router.post("/product", isAuthenticated, isAdmin, upload.single("file"), validateSchema(createProductSchema),
+router.post("/product", isAuthenticated, isAdmin, 
+    upload.single("file"), validateSchema(createProductSchema),
     new CreateProductController().handle)
+router.get("/products", isAuthenticated, 
+    new ListProductController().handle)
+router.delete("/product", isAuthenticated, isAdmin, 
+    new DeleteProductController().handle)
+router.get("/category/product", isAuthenticated, 
+    new ListProductByCategoryController().handle)
 
 export { router }

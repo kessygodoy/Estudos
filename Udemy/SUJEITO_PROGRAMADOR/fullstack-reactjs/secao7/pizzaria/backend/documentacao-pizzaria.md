@@ -42,22 +42,32 @@ backend/
 │   │   │   ├── CreateUserController.ts
 │   │   │   ├── AuthUserController.ts
 │   │   │   └── DetailUserController.ts
-│   │   └── category/
-│   │       └── CreateCategoryController.ts
+│   │   ├── category/
+│   │   │   ├── CreateCategoryController.ts
+│   │   │   └── ListCategoryController.ts
+│   │   └── product/
+│   │       └── CreateProductController.ts
 │   ├── services/            # Serviços (lógica de negócio)
 │   │   ├── user/
 │   │   │   ├── CreateUserService.ts
 │   │   │   ├── AuthUserService.ts
 │   │   │   └── DetailUserService.ts
-│   │   └── category/
-│   │       └── CreateCategoryService.ts
+│   │   ├── category/
+│   │   │   ├── CreateCategoryService.ts
+│   │   │   └── ListCategoryService.ts
+│   │   └── product/
+│   │       └── CreateProductService.ts
 │   ├── middlewares/         # Middlewares customizados
 │   │   ├── isAuthenticated.ts
 │   │   ├── isAdmin.ts
 │   │   └── validateSchema.ts
 │   ├── schemas/             # Schemas de validação (Zod)
 │   │   ├── userSchema.ts
-│   │   └── categorySchema.ts
+│   │   ├── categorySchema.ts
+│   │   └── productSchema.ts
+│   ├── config/              # Configurações
+│   │   ├── multer.ts        # Configuração de upload de arquivos
+│   │   └── cloudinary.ts    # Configuração do Cloudinary
 │   ├── generated/
 │   │   └── prisma/          # Cliente Prisma gerado
 │   ├── prisma/
@@ -87,6 +97,8 @@ backend/
 | `cors` | ^2.8.5 | Middleware para CORS |
 | `dotenv` | ^17.2.3 | Gerenciamento de variáveis de ambiente |
 | `tsx` | ^4.21.0 | Executor TypeScript para desenvolvimento |
+| `multer` | ^2.0.2 | Middleware para upload de arquivos |
+| `cloudinary` | ^2.8.0 | SDK para armazenamento de imagens na nuvem |
 
 ### Dependências de Desenvolvimento
 
@@ -98,6 +110,7 @@ backend/
 | `@types/jsonwebtoken` | ^9.0.10 | Tipos TypeScript para JWT |
 | `@types/node` | ^25.0.3 | Tipos TypeScript para Node.js |
 | `@types/pg` | ^8.16.0 | Tipos TypeScript para PostgreSQL |
+| `@types/multer` | ^2.0.0 | Tipos TypeScript para Multer |
 | `prisma` | ^7.2.0 | CLI do Prisma |
 
 ### Runtime
@@ -265,10 +278,19 @@ model Item {
 | Método | Endpoint | Middlewares | Descrição |
 |--------|----------|-------------|-----------|
 | `POST` | `/category` | `isAuthenticated`, `isAdmin`, `validateSchema(createCategorySchema)` | Criar nova categoria (apenas admin) |
+| `GET` | `/category` | `isAuthenticated` | Listar todas as categorias |
+
+### Produtos
+
+| Método | Endpoint | Middlewares | Descrição |
+|--------|----------|-------------|-----------|
+| `POST` | `/product` | `isAuthenticated`, `isAdmin`, `upload.single("file")`, `validateSchema(createProductSchema)` | Criar novo produto com upload de imagem (apenas admin) |
 
 ---
 
 ## 📝 Detalhamento dos Endpoints
+
+### Categorias
 
 ### POST /users
 
@@ -402,6 +424,91 @@ Authorization: Bearer <token>
 
 ---
 
+### GET /category
+
+Retorna todas as categorias cadastradas, ordenadas por data de criação (mais recentes primeiro).
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Response 200:**
+```json
+[
+  {
+    "id": "uuid",
+    "name": "Pizzas",
+    "createdAt": "2024-01-01T00:00:00.000Z"
+  },
+  {
+    "id": "uuid",
+    "name": "Bebidas",
+    "createdAt": "2024-01-02T00:00:00.000Z"
+  }
+]
+```
+
+**Erros:**
+- `401`: "Token not found" ou "Token invalid" (não autenticado)
+- `400`: "Falha ao listar categorias" (erro no servidor)
+
+---
+
+### Produtos
+
+### POST /product
+
+Cria um novo produto com upload de imagem. **Apenas usuários com role ADMIN podem criar produtos.**
+
+**Headers:**
+```
+Authorization: Bearer <token>
+Content-Type: multipart/form-data
+```
+
+**Request Body (multipart/form-data):**
+```
+name: "Pizza Margherita"
+price: "3500"  (valor em centavos)
+description: "Pizza com molho de tomate, mussarela e manjericão"
+category_id: "uuid-da-categoria"
+file: [arquivo de imagem]
+```
+
+**Validações:**
+- `name`: obrigatório, mínimo de 1 caractere
+- `price`: obrigatório, deve ser um número em formato string (apenas dígitos)
+- `description`: obrigatório, mínimo de 1 caractere
+- `category_id`: obrigatório, deve ser um UUID válido
+- `file`: obrigatório, formatos aceitos: JPEG, JPG, PNG, tamanho máximo: 4MB
+
+**Response 200:**
+```json
+{
+  "id": "uuid",
+  "name": "Pizza Margherita",
+  "price": 3500,
+  "description": "Pizza com molho de tomate, mussarela e manjericão",
+  "category_id": "uuid-da-categoria",
+  "banner": "https://res.cloudinary.com/.../products/...",
+  "createdAt": "2024-01-01T00:00:00.000Z"
+}
+```
+
+**Erros:**
+- `400`: Erro de validação (dados inválidos)
+- `400`: "Nenhum arquivo enviado" (arquivo não fornecido)
+- `400`: "Formato de arquivo inválido" (formato não aceito)
+- `400`: "Categoria não encontrada" (category_id inválido)
+- `400`: "Erro ao enviar imagem" (falha no upload para Cloudinary)
+- `401`: "Token not found" ou "Token invalid" (não autenticado)
+- `401`: "Unauthorized" (usuário não é admin)
+
+**Nota:** A imagem é enviada para o Cloudinary e a URL retornada é armazenada no banco de dados.
+
+---
+
 ## 🔐 Middlewares
 
 ### 1. `validateSchema`
@@ -526,6 +633,30 @@ export const createCategorySchema = z.object({
     })
 });
 ```
+
+---
+
+### Product Schemas
+
+**Arquivo**: `src/schemas/productSchema.ts`
+
+#### `createProductSchema`
+```typescript
+export const createProductSchema = z.object({
+    body: z.object({
+        name: z.string().min(1, {message: "O nome do produto é obrigatório"}),
+        price: z.string().min(1, {message: "O preço do produto é obrigatório"})
+                 .regex(/^\d+$/),
+        description: z.string().min(1, {message: "A descrição do produto é obrigatória"}),
+        category_id: z.string({message: "A categoria do produto é obrigatória"}),
+    })
+});
+```
+
+**Observações:**
+- O campo `price` é validado como string contendo apenas dígitos
+- O valor do preço deve ser em centavos (ex: 3500 = R$ 35,00)
+- O arquivo de imagem é validado pelo middleware Multer, não pelo schema Zod
 
 ---
 
@@ -695,6 +826,9 @@ Arquivo `.env` deve conter:
 DATABASE_URL="postgresql://user:password@localhost:5432/pizzaria"
 JWT_SECRET="seu-secret-super-seguro"
 PORT=3333
+CLOUDINARY_CLOUD_NAME="seu-cloud-name"
+CLOUDINARY_API_KEY="sua-api-key"
+CLOUDINARY_API_SECRET="seu-api-secret"
 ```
 
 ### Descrição das Variáveis
@@ -702,6 +836,9 @@ PORT=3333
 - **DATABASE_URL**: String de conexão com o banco de dados PostgreSQL
 - **JWT_SECRET**: Chave secreta para assinatura e verificação de tokens JWT
 - **PORT**: Porta em que o servidor irá rodar (padrão: 3333)
+- **CLOUDINARY_CLOUD_NAME**: Nome da conta no Cloudinary
+- **CLOUDINARY_API_KEY**: Chave de API do Cloudinary
+- **CLOUDINARY_API_SECRET**: Secret da API do Cloudinary
 
 ---
 
@@ -737,17 +874,80 @@ npx prisma studio
 
 ---
 
+## ⚙️ Configurações
+
+### Multer (Upload de Arquivos)
+
+**Arquivo**: `src/config/multer.ts`
+
+**Configuração:**
+```typescript
+export default {
+    storage: multer.memoryStorage(),  // Armazena em memória para envio direto ao Cloudinary
+    limits: {
+        fileSize: 4*1024*1024  // Limite de 4MB
+    },
+    fileFilter: (req, file, cb) => {
+        const allowedMimes = [
+            "image/jpeg",
+            "image/jpg",
+            "image/png"
+        ]
+        
+        if(allowedMimes.includes(file.mimetype)){
+            cb(null, true)
+        }else{
+            cb(new Error("Formato de arquivo inválido"))
+        }
+    }
+}
+```
+
+**Características:**
+- Usa `memoryStorage` para manter o arquivo em memória (buffer)
+- Limite de tamanho: 4MB
+- Formatos aceitos: JPEG, JPG, PNG
+- Rejeita outros formatos com erro
+
+---
+
+### Cloudinary (Armazenamento de Imagens)
+
+**Arquivo**: `src/config/cloudinary.ts`
+
+**Configuração:**
+```typescript
+import { v2 as cloudinary } from "cloudinary";
+
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME as string,
+    api_key: process.env.CLOUDINARY_API_KEY as string,
+    api_secret: process.env.CLOUDINARY_API_SECRET as string
+})
+
+export default cloudinary
+```
+
+**Uso:**
+- Armazena imagens de produtos na nuvem
+- Organiza imagens na pasta "products"
+- Retorna URLs HTTPS seguras
+- Requer credenciais configuradas no `.env`
+
+---
+
 ## 🎯 Próximas Implementações
 
-- [ ] Endpoints para produtos (CRUD)
+- [x] ~~Endpoint para listar categorias~~
+- [x] ~~Endpoint para criar produtos~~
+- [x] ~~Upload de imagens (banner de produtos)~~
+- [ ] Endpoints para listar, atualizar e deletar produtos
 - [ ] Endpoints para pedidos (CRUD)
 - [ ] Endpoints para itens de pedidos
-- [ ] Upload de imagens (banner de produtos)
 - [ ] Paginação de listagens
 - [ ] Filtros e buscas
 - [ ] Testes unitários e de integração
 - [ ] Documentação Swagger/OpenAPI
-- [ ] Endpoint para listar categorias
 - [ ] Endpoint para atualizar e deletar categorias
 - [ ] Endpoint para atualizar e deletar usuários
 
@@ -823,6 +1023,44 @@ npx prisma studio
 
 ---
 
+### ListCategoryService
+
+**Arquivo**: `src/services/category/ListCategoryService.ts`
+
+**Funcionalidade**: Lista todas as categorias cadastradas.
+
+**Lógica**:
+1. Busca todas as categorias no banco de dados
+2. Ordena por data de criação (mais recentes primeiro)
+3. Retorna array de categorias com id, name e createdAt
+4. Em caso de erro, lança exceção "Falha ao listar categorias"
+
+---
+
+### CreateProductService
+
+**Arquivo**: `src/services/product/CreateProductService.ts`
+
+**Funcionalidade**: Cria um novo produto com upload de imagem para o Cloudinary.
+
+**Lógica**:
+1. Verifica se a categoria existe no banco de dados
+2. Se não existir, lança erro "Categoria não encontrada"
+3. Faz upload da imagem para o Cloudinary:
+   - Converte o buffer da imagem em stream
+   - Envia para a pasta "products" no Cloudinary
+   - Gera um public_id único com timestamp + nome do arquivo
+   - Obtém a URL segura (HTTPS) da imagem
+4. Cria o produto no banco de dados com a URL da imagem
+5. Converte o preço de string para inteiro
+6. Retorna dados do produto criado
+
+**Tratamento de Erros:**
+- Erro no upload: "Erro ao enviar imagem"
+- Categoria inválida: "Categoria não encontrada"
+
+---
+
 ## 🐛 Tratamento de Erros
 
 O projeto utiliza um middleware global de tratamento de erros no `server.ts`:
@@ -888,6 +1126,25 @@ curl -X POST http://localhost:3333/category \
   -d '{
     "name": "Pizzas"
   }'
+```
+
+### Listar Categorias
+
+```bash
+curl -X GET http://localhost:3333/category \
+  -H "Authorization: Bearer <token>"
+```
+
+### Criar Produto (Admin)
+
+```bash
+curl -X POST http://localhost:3333/product \
+  -H "Authorization: Bearer <token>" \
+  -F "name=Pizza Margherita" \
+  -F "price=3500" \
+  -F "description=Pizza com molho de tomate, mussarela e manjericão" \
+  -F "category_id=uuid-da-categoria" \
+  -F "file=@/caminho/para/imagem.jpg"
 ```
 
 ---
