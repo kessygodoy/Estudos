@@ -286,6 +286,12 @@ model Item {
 |--------|----------|-------------|-----------|
 | `POST` | `/product` | `isAuthenticated`, `isAdmin`, `upload.single("file")`, `validateSchema(createProductSchema)` | Criar novo produto com upload de imagem (apenas admin) |
 
+### Pedidos
+
+| Método | Endpoint | Middlewares | Descrição |
+|--------|----------|-------------|-----------|
+| `POST` | `/order` | `isAuthenticated`, `validateSchema(createOrderSchema)` | Criar novo pedido |
+
 ---
 
 ## 📝 Detalhamento dos Endpoints
@@ -506,6 +512,50 @@ file: [arquivo de imagem]
 - `401`: "Unauthorized" (usuário não é admin)
 
 **Nota:** A imagem é enviada para o Cloudinary e a URL retornada é armazenada no banco de dados.
+
+---
+
+### Pedidos
+
+### POST /order
+
+Cria um novo pedido. **Qualquer usuário autenticado pode criar pedidos.**
+
+**Headers:**
+```
+Authorization: Bearer <token>
+```
+
+**Request Body:**
+```json
+{
+  "table": 5,
+  "name": "João Silva"
+}
+```
+
+**Validações:**
+- `table`: obrigatório, deve ser um número inteiro maior que 0
+- `name`: obrigatório, mínimo de 1 caractere
+
+**Response 201:**
+```json
+{
+  "id": "uuid",
+  "table": 5,
+  "name": "João Silva",
+  "status": false,
+  "draft": true,
+  "createdAt": "2024-01-01T00:00:00.000Z"
+}
+```
+
+**Erros:**
+- `400`: Erro de validação (dados inválidos)
+- `400`: "Falha ao criar pedido" (erro no servidor)
+- `401`: "Token not found" ou "Token invalid" (não autenticado)
+
+**Nota:** Pedidos são criados com `status: false` (pendente) e `draft: true` (não enviado para cozinha).
 
 ---
 
