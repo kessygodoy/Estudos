@@ -9,7 +9,7 @@ class ListOrdersService {
 
         const orders = await prismaClient.order.findMany({
             where: {
-                draft: draft === "true" ? true : false
+                draft: draft === "true"
             },
             select: {
                 id: true,

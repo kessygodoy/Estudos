@@ -1,8 +1,7 @@
 import { ZodError, ZodType } from 'zod'
 import { Request, Response, NextFunction } from 'express'
 
-export const validateSchema = 
-(schema: ZodType) => async(req: Request, res: Response, next: NextFunction) => {
+export const validateSchema = (schema: ZodType) => async (req: Request, res: Response, next: NextFunction) => {
     try {
         await schema.parseAsync({
             body: req.body,
@@ -12,14 +11,15 @@ export const validateSchema =
 
         return next();
     } catch (error) {
-        if(error instanceof ZodError){
+        if (error instanceof ZodError) {
             return res.status(400).json({
                 error: "Erro de validação",
                 details: error.issues.map(issue => ({
                     mensagem: issue.message
-                }))});
+                }))
+            });
         }
 
-        return res.status(500).json({error: "Erro interno do servidor"});
+        return res.status(500).json({ error: "Erro interno do servidor" });
     }
 }
