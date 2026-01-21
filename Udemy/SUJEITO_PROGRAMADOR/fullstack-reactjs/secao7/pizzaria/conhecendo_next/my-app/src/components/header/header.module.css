@@ -1,0 +1,29 @@
+.header {
+    color: #fff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 95%;
+    margin: 0 auto; 
+    padding: 0 0.5rem;
+    border-radius: .5rem;
+    background-color: #121212;
+}
+
+.header a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.logo {
+    color: #0c0;
+}
+
+.logo2 {
+    color: #fff;
+}
+
+.links {
+    display: flex;
+    gap: 1rem;
+}

@@ -35,7 +35,7 @@ export default function Repositorios() {
                 <div key={item.id}>
                     <h2>{item.name}</h2>
                     <span>{item.full_name}</span>
-                    <img src={item.owner.avatar_url} alt="" />
+                    {/* <img src={item.owner.avatar_url} alt="" /> */}
                 </div>
             ))}
         </div>

@@ -13,6 +13,7 @@ interface DataProps {
 }
 
 async function getData(){
+  // await new Promise((resolve) => setTimeout(resolve, 2000))
   const response = await fetch('https://api.github.com/users/kessygodoy/repos')
 
   return response.json();
