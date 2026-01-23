@@ -9,7 +9,7 @@ export function Header() {
            <Link href="/">Home</Link>
            <Link href="/contatos">Contatos</Link>
            <Link href="/repositorios">Repositorios</Link>
-           <Link href="/dashboard">Dashboard</Link>
+           <Link href="/dashboard">Painel</Link>
            </div>
         </header>
     )
