@@ -1,3 +1,4 @@
+import { OwnerRepo } from "@/components/OwnerRepo";
 import Link from "next/link";
 
 interface DataProps {
@@ -35,6 +36,11 @@ export default async function Home() {
         <div key={item.id}>
           <h2>{item.name}</h2>
           <span>{item.full_name}</span>
+          <OwnerRepo 
+            avatar_url={item.owner.avatar_url}
+            name={item.owner.login}
+          />
+          <br />
           {/* <img src={item.owner.avatar_url} alt="" /> */}
         </div>
       ))}
