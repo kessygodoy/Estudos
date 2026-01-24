@@ -13,9 +13,13 @@ interface DataProps {
   }
 }
 
-async function getData(){
+async function getData() {
   // await new Promise((resolve) => setTimeout(resolve, 2000))
-  const response = await fetch('https://api.github.com/users/kessygodoy/repos')
+  const response = await fetch('https://api.github.com/users/kessygodoy/repos',
+    {
+      cache: "no-store"
+    }
+  )
 
   return response.json();
 }
@@ -36,7 +40,7 @@ export default async function Home() {
         <div key={item.id}>
           <h2>{item.name}</h2>
           <span>{item.full_name}</span>
-          <OwnerRepo 
+          <OwnerRepo
             avatar_url={item.owner.avatar_url}
             name={item.owner.login}
           />
