@@ -285,12 +285,22 @@ model Item {
 | Método | Endpoint | Middlewares | Descrição |
 |--------|----------|-------------|-----------|
 | `POST` | `/product` | `isAuthenticated`, `isAdmin`, `upload.single("file")`, `validateSchema(createProductSchema)` | Criar novo produto com upload de imagem (apenas admin) |
+| `GET` | `/products` | `isAuthenticated` | Listar todos os produtos |
+| `DELETE` | `/product` | `isAuthenticated`, `isAdmin` | Deletar um produto |
+| `GET` | `/category/product` | `isAuthenticated` | Listar produtos por categoria |
 
 ### Pedidos
 
 | Método | Endpoint | Middlewares | Descrição |
 |--------|----------|-------------|-----------|
 | `POST` | `/order` | `isAuthenticated`, `validateSchema(createOrderSchema)` | Criar novo pedido |
+| `GET` | `/orders` | `isAuthenticated` | Listar pedidos |
+| `DELETE` | `/order` | `isAuthenticated` | Deletar um pedido |
+| `POST` | `/order/add` | `isAuthenticated`, `validateSchema(addItemSchema)` | Adicionar item ao pedido |
+| `DELETE` | `/order/remove` | `isAuthenticated` | Remover item do pedido |
+| `GET` | `/order/detail` | `isAuthenticated` | Detalhes do pedido |
+| `PUT` | `/order/send` | `isAuthenticated`, `validateSchema(sendOrderSchema)` | Enviar pedido |
+| `PUT` | `/order/finish` | `isAuthenticated`, `validateSchema(finishOrderSchema)` | Finalizar pedido |
 
 ---
 
@@ -515,6 +525,63 @@ file: [arquivo de imagem]
 
 ---
 
+### GET /products
+
+Lista todos os produtos cadastrados.
+
+**Query Params:**
+- `disabled`: (opcional) "true" para listar também produtos desabilitados. Padrão: `false` (apenas habilitados).
+
+**Response 200:**
+```json
+[
+  {
+    "id": "uuid",
+    "name": "Pizza",
+    "price": 3000,
+    "description": "...",
+    "banner": "https://...",
+    "category_id": "...",
+    "disabled": false
+  }
+]
+```
+
+### DELETE /product
+
+Desabilita um produto (soft delete). O produto não é removido do banco, apenas marcado como `disabled: true`.
+
+**Query Params:**
+- `product_id`: ID do produto a ser deletado.
+
+**Response 200:**
+```json
+{
+  "message": "Produto deletado/arquivado com sucesso"
+}
+```
+
+### GET /category/product
+
+Lista produtos de uma categoria específica.
+
+**Query Params:**
+- `category_id`: ID da categoria.
+
+**Response 200:**
+```json
+[
+  {
+    "id": "uuid",
+    "name": "Pizza",
+    "price": 3000,
+    ...
+  }
+]
+```
+
+---
+
 ### Pedidos
 
 ### POST /order
@@ -556,6 +623,131 @@ Authorization: Bearer <token>
 - `401`: "Token not found" ou "Token invalid" (não autenticado)
 
 **Nota:** Pedidos são criados com `status: false` (pendente) e `draft: true` (não enviado para cozinha).
+
+---
+
+### GET /orders
+
+Lista os pedidos.
+
+**Query Params:**
+- `draft`: (opcional) "true" para listar pedidos em rascunho, "false" para pedidos confirmados (cozinha).
+
+**Response 200:**
+```json
+[
+  {
+    "id": "uuid",
+    "table": 5,
+    "status": false,
+    "draft": false,
+    "name": "Cliente"
+  }
+]
+```
+
+### DELETE /order
+
+Deleta um pedido permanentemente (hard delete).
+
+**Query Params:**
+- `order_id`: ID do pedido.
+
+**Response 200:**
+```json
+{
+  "message": "Pedido deletado com sucesso"
+}
+```
+
+### POST /order/add
+
+Adiciona um item a um pedido.
+
+**Request Body:**
+```json
+{
+  "order_id": "uuid-pedido",
+  "product_id": "uuid-produto",
+  "amount": 2
+}
+```
+
+**Response 200:**
+```json
+{
+  "id": "uuid-item",
+  "order_id": "uuid-pedido",
+  "product_id": "uuid-produto",
+  "amount": 2
+}
+```
+
+### DELETE /order/remove
+
+Remove um item de um pedido.
+
+**Query Params:**
+- `item_id`: ID do item a ser removido.
+
+**Response 200:**
+```json
+{
+  "id": "uuid-item",
+  ...
+}
+```
+
+### GET /order/detail
+
+Retorna os detalhes de um pedido (itens inclusos).
+
+**Query Params:**
+- `order_id`: ID do pedido.
+
+**Response 200:**
+```json
+[
+  {
+    "id": "uuid-item",
+    "amount": 2,
+    "product": {
+      "name": "Pizza",
+      "price": 3000,
+      ...
+    },
+    "order": {
+      "table": 10,
+      "status": false,
+      "draft": false,
+      ...
+    }
+  }
+]
+```
+
+### PUT /order/send
+
+Envia o pedido para a cozinha (sai de rascunho).
+
+**Request Body:**
+```json
+{
+  "order_id": "uuid-pedido",
+  "name": "Cliente"
+}
+```
+
+### PUT /order/finish
+
+Finaliza um pedido.
+
+**Request Body:**
+```json
+{
+  "order_id": "uuid-pedido"
+}
+```
 
 ---
 
@@ -991,9 +1183,9 @@ export default cloudinary
 - [x] ~~Endpoint para listar categorias~~
 - [x] ~~Endpoint para criar produtos~~
 - [x] ~~Upload de imagens (banner de produtos)~~
-- [ ] Endpoints para listar, atualizar e deletar produtos
-- [ ] Endpoints para pedidos (CRUD)
-- [ ] Endpoints para itens de pedidos
+- [x] Endpoints para listar, atualizar e deletar produtos
+- [x] Endpoints para pedidos (CRUD)
+- [x] Endpoints para itens de pedidos
 - [ ] Paginação de listagens
 - [ ] Filtros e buscas
 - [ ] Testes unitários e de integração
