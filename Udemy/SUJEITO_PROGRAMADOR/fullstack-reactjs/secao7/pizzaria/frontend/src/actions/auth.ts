@@ -40,15 +40,23 @@ export async function loginAction(
     prevState: { success: boolean; error: string; redirectTo?: string } | null,
     formData: FormData
 ) {
-    const email = formData.get("email")
-    const password = formData.get("password")
+    try {
+        const email = formData.get("email")
+        const password = formData.get("password")
 
-    const response = await apiClient<AuthResponse>("/session", {
-        method: "POST",
-        body: JSON.stringify({ email, password })
-    })
+        const response = await apiClient<AuthResponse>("/session", {
+            method: "POST",
+            body: JSON.stringify({ email, password })
+        })
 
-    console.log(response)
+        console.log(response)
 
-    return { success: true, error: "", redirectTo: "/" }
+        return { success: true, error: "", redirectTo: "/dashboard" }
+    } catch (error) {
+        if (error instanceof Error) {
+            return { success: false, error: error.message }
+        }
+
+        return { success: false, error: "Erro ao fazer login" }
+    }
 }

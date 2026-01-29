@@ -64,6 +64,12 @@ export function LoginForm() {
                         {isPending ? "Acessando conta..." : "Acessar conta"}
                     </Button>
 
+                    {state?.error && (
+                        <div className="text-red-500 text-center">
+                            {state.error}
+                        </div>
+                    )}
+
                     <p className="text-center text-gray-400 mt-4 text-sm">Não tem uma conta?{" "}
                         <Link href="/register" className="text-brand-primary font-semibold">
                             Registre-se</Link></p>
