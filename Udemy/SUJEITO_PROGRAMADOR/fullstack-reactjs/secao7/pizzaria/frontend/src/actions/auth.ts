@@ -1,7 +1,7 @@
 "use server"
 
 import { apiClient } from "@/lib/api"
-import { User } from "@/lib/types"
+import { AuthResponse, User } from "@/lib/types"
 
 export async function registerAction(
     prevState: { success: boolean; error: string; redirectTo?: string } | null,
@@ -34,4 +34,21 @@ export async function registerAction(
 
         return { success: false, error: "Erro ao registrar" }
     }
+}
+
+export async function loginAction(
+    prevState: { success: boolean; error: string; redirectTo?: string } | null,
+    formData: FormData
+) {
+    const email = formData.get("email")
+    const password = formData.get("password")
+
+    const response = await apiClient<AuthResponse>("/session", {
+        method: "POST",
+        body: JSON.stringify({ email, password })
+    })
+
+    console.log(response)
+
+    return { success: true, error: "", redirectTo: "/" }
 }
