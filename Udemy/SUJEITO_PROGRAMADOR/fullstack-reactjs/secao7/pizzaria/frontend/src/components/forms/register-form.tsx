@@ -1,5 +1,5 @@
 "use client"
-import { useState, useActionState } from "react"
+import { useState, useActionState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "../ui/button"
 import {
@@ -12,11 +12,19 @@ import {
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { registerAction } from "@/actions/auth"
+import { useRouter } from "next/navigation"
 
 
 export function RegisterForm() {
 
     const [state, formAction, isPending] = useActionState(registerAction, null)
+    const router = useRouter();
+
+    useEffect(() => {
+        if (state?.success && state.redirectTo) {
+            router.replace(state.redirectTo)
+        }
+    }, [state,])
 
     return (
         <Card className="bg-app-card border-app-border w-full max-w-md mx-auto">
@@ -59,17 +67,6 @@ export function RegisterForm() {
                             id="password"
                             name="password"
                             placeholder="Digite sua senha"
-                            required
-                            className="text-white bg-app-card border-app-border"
-                        />
-                    </div>
-
-                    <div className="space-y-2">
-                        <Label htmlFor="password_confirmation" className="text-white">Confirme sua senha</Label>
-                        <Input
-                            type="password"
-                            id="password_confirmation"
-                            placeholder="Confirme sua senha"
                             required
                             className="text-white bg-app-card border-app-border"
                         />

@@ -1,15 +1,35 @@
 "use server"
 
+import { apiClient } from "@/lib/api"
+import { redirect } from "next/navigation";
+
 export async function registerAction(
-    prevState: { success: boolean; error: string } | null,
+    prevState: { success: boolean; error: string; redirectTo?: string } | null,
     formData: FormData
 ) {
-    console.log("Ação de registro")
-    const email = formData.get("email")
-    const name = formData.get("name")
-    const password = formData.get("password")
-    const password_confirmation = formData.get("password_confirmation")
-    console.log(email, name, password, password_confirmation)
 
-    return { success: true, error: "" }
+
+    try {
+        const email = formData.get("email")
+        const name = formData.get("name")
+        const password = formData.get("password")
+
+        const data = {
+            name,
+            email,
+            password,
+        }
+        await apiClient("/users", {
+            body: JSON.stringify(data),
+            method: "POST"
+        })
+
+        return { success: true, error: "", redirectTo: "/login" }
+    } catch (error: any) {
+        if (error instanceof Error) {
+            return { success: false, error: error.message }
+        }
+
+        return { success: false, error: "Erro ao registrar" }
+    }
 }

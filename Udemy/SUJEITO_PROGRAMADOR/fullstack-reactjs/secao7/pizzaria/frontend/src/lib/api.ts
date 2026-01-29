@@ -33,11 +33,13 @@ export async function apiClient<T>(
         headers["Content-Type"] = "application/json"
     }
 
-    const response = await fetch(`${API_URL}/${endpoint}`, { ...fetchOptions, headers })
+    const response = await fetch(`${API_URL}${endpoint}`, { ...fetchOptions, headers })
 
     if (!response.ok) {
-        const error = await response.json().catch(() => ({ error: "Erro na requisição: " + response.status }))
-        throw new Error(error || "Erro na requisição")
+        const error = await response.json().catch(() => ({
+            error: "Erro HTTP: " + response.status,
+        }));
+        throw new Error(error.error)
     }
 
     return response.json()
