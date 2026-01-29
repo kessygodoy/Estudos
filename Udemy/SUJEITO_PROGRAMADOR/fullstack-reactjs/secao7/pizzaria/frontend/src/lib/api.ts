@@ -15,6 +15,7 @@ interface FetchOptions extends RequestInit { //RequestInit é uma interface do f
     }
 }
 
+// O T é um tipo genérico que indica o tipo de dados que a API irá retornar
 export async function apiClient<T>(
     endpoint: string,
     options: FetchOptions = {}
