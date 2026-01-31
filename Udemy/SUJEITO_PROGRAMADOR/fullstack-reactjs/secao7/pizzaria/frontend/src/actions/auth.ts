@@ -54,7 +54,7 @@ export async function loginAction(
         return { success: true, error: "", redirectTo: "/dashboard" }
     } catch (error) {
         if (error instanceof Error) {
-            return { success: false, error: error.message }
+            return { success: false, error: error.message || "Erro ao fazer login" }
         }
 
         return { success: false, error: "Erro ao fazer login" }
