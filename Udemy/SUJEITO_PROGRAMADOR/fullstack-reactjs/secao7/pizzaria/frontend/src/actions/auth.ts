@@ -2,6 +2,7 @@
 
 import { apiClient } from "@/lib/api"
 import { AuthResponse, User } from "@/lib/types"
+import { setToken } from "@/lib/auth"
 
 export async function registerAction(
     prevState: { success: boolean; error: string; redirectTo?: string } | null,
@@ -49,7 +50,7 @@ export async function loginAction(
             body: JSON.stringify({ email, password })
         })
 
-        console.log(response)
+        await setToken(response.token)
 
         return { success: true, error: "", redirectTo: "/dashboard" }
     } catch (error) {

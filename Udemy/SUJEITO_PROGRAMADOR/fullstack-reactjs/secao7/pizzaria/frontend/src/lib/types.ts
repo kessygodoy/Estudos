@@ -12,4 +12,5 @@ export interface AuthResponse {
     email: string;
     role: "ADMIN" | "STAFF";
     createdAt: string;
+    token: string;
 }
