@@ -13,6 +13,7 @@ import { Input } from "../ui/input"
 import { Label } from "../ui/label"
 import { loginAction, registerAction } from "@/actions/auth"
 import { useRouter } from "next/navigation"
+import Logo from "../ui/logo"
 
 
 export function LoginForm() {
@@ -29,8 +30,7 @@ export function LoginForm() {
     return (
         <Card className="bg-app-card border-app-border w-full max-w-md mx-auto">
             <CardHeader>
-                <CardTitle className="text-white text-center text-2xl sm:text-3xl font-bold"><span className="text-brand-primary">Pix</span>Lottery</CardTitle>
-                <CardDescription>Login</CardDescription>
+                <Logo />
             </CardHeader>
 
             <CardContent>
