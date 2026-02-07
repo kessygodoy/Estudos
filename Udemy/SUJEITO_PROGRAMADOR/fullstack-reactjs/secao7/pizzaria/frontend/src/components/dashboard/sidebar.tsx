@@ -1,11 +1,13 @@
 "use client"
 
-import { ShoppingCart, Package, Tags } from "lucide-react";
+import { ShoppingCart, Package, Tags, LogOut } from "lucide-react";
 import { CardTitle } from "../ui/card";
 import Logo from "../ui/logo";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import path from "path";
+import { Button } from "../ui/button";
+import { logoutAction } from "@/actions/auth";
 
 interface SidebarProps {
     userName: string;
@@ -57,6 +59,15 @@ export function Sidebar({ userName }: SidebarProps) {
                     )
                 })}
             </nav>
+
+            <div className="border-t border-app-border p-4">
+                <form action={logoutAction}>
+                    <Button className="w-full flex items-center gap-3 rounded-md hover:bg-gray-700">
+                        <LogOut className="size-5" />
+                        Sair
+                    </Button>
+                </form>
+            </div>
         </aside >
     )
 }
