@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Plus, Tags } from "lucide-react";
 import { CategoryType } from "@/lib/types";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CategoryForm } from "@/components/dashboard/category-form";
 
 export default async function Categories() {
     const token = await getToken();
@@ -11,7 +12,6 @@ export default async function Categories() {
         token: token!,
     })
 
-    console.log(categories)
     return (
         <div className="space-y-4 sm:space-y-6">
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -21,10 +21,7 @@ export default async function Categories() {
                     <p className="text-gray-400 text-sm sm:text-base mt-1">Gerencie suas categorias de produtos</p>
                 </div>
 
-                <Button>
-                    <Plus className="size-5" />
-                    Nova Categoria
-                </Button>
+                <CategoryForm />
             </div>
 
             {categories.length !== 0 && (
