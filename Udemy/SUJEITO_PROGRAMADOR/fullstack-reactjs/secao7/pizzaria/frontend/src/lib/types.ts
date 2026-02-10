@@ -14,3 +14,9 @@ export interface AuthResponse {
     createdAt: string;
     token: string;
 }
+
+export interface CategoryType {
+    id: string;
+    name: string;
+    createdAt: string;
+}
