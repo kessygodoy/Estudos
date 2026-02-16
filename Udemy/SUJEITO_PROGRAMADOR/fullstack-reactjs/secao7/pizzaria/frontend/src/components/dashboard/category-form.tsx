@@ -13,10 +13,27 @@ import { DialogDescription } from "@radix-ui/react-dialog";
 import { Label } from "@radix-ui/react-label";
 import { createCategoryAction } from "@/actions/categories";
 import { Input } from "../ui/input";
+import { useRouter } from "next/navigation";
 
 export function CategoryForm() {
-
+    const router = useRouter()
     const [open, setOpen] = useState(false);
+
+    async function handleCreateCategory(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget)
+        const result = await createCategoryAction(formData)
+
+        if (result.success) {
+            setOpen(false)
+            router.refresh()
+        } else {
+            console.log(result.message)
+        }
+
+    }
+
     return (
         <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
@@ -32,7 +49,7 @@ export function CategoryForm() {
                         Adicione uma nova categoria para organizar seus produtos
                     </DialogDescription>
                 </DialogHeader>
-                <form className="space-y-4" action={createCategoryAction}>
+                <form className="space-y-4" onSubmit={handleCreateCategory}>
                     <div>
                         <Label htmlFor="name">
                             Nome da categoria
