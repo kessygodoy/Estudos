@@ -20,3 +20,19 @@ export interface CategoryType {
     name: string;
     createdAt: string;
 }
+
+export interface ProductType {
+    id: string;
+    name: string;
+    price: string;
+    description: string;
+    banner: string;
+    category_id: string;
+    category: {
+        id: string;
+        name: string;
+    };
+    disabled: boolean;
+    createdAt: string;
+    updatedAt: string;
+}
