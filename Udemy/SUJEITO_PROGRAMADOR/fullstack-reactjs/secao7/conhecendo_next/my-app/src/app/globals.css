@@ -5,3 +5,10 @@ body{
   color: #fff;
   font-family: 'Poppins', sans-serif;
 }
+
+.active {
+  background-color: gray;
+  color: #181818;
+  padding: 5px;
+  border-radius: 5px;
+}

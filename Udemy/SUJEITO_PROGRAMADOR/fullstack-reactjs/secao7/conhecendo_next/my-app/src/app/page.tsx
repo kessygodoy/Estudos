@@ -1,5 +1,6 @@
 import { OwnerRepo } from "@/components/OwnerRepo";
 import Link from "next/link";
+import BotaoRedirect from "../components/BotaoRedirect"
 
 interface DataProps {
   id: number;
@@ -34,6 +35,8 @@ export default async function Home() {
       <h1>Home</h1>
       <span>Seja bem vindo a pagina home</span>
 
+      {/* useRouter */}
+      <BotaoRedirect />
 
       <h3>Meus repositórios</h3>
       {data.map((item) => (
