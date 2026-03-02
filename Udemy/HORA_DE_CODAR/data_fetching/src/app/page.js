@@ -12,11 +12,22 @@ export default async function Home() {
         <h1>Todos!</h1>
         <div className="space-y-4 w-full">
           {todos.map(todo => (
-            <div key={todo.id} className="bg-gray-800 rounded-lg shadow p-4 w-full">
-              <p className="text-xl font-bold">{todo.titulo}</p>
-              <p className="text-gray-400">{todo.descricao}</p>
-              <p className={`flex flex-row justify-end ${todo.status === "pendente" ? "text-red-700" : "text-green-500"}`}>{todo.status}</p>
+            <div key={todo.id} className="flex space-x-2 mt-3">
+              <div className="bg-gray-800 rounded-lg shadow px-4 py-1 w-full h-full flex justify-between">
+                <div>
+                  <p className="text-xl font-bold">{todo.titulo}</p>
+                  <p className="text-gray-400">{todo.descricao}</p>
+                  <p className={`flex flex-row justify-end ${todo.status === "pendente" ? "text-red-700" : "text-green-500"}`}>{todo.status}</p>
+                </div>
+                <div className="flex space-x-2 my-auto flex-col w-25">
+                  <Link href="/" className="bg-gray-500 px-2  w-full m-1 text-center rounded-md text-white font-bold">Visualizar</Link>
+                  <Link href="/" className="bg-gray-500 px-2  w-full m-1 text-center rounded-md text-white font-bold">Editar</Link>
+                  <Link href="/" className="bg-red-500 px-2  w-full m-1 text-center rounded-md text-white font-bold">Excluir</Link>
+                </div>
+              </div>
+
             </div>
+
           ))}
         </div>
       </main >
