@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { db } from '../../../db'
 import React from 'react'
 
@@ -10,6 +11,8 @@ const TodoPage = async ({ params }) => {
             id: Number(id)
         }
     })
+
+    if (!todo) return notFound()
 
     return (
         <div>
