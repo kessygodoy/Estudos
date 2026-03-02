@@ -1,12 +1,25 @@
+import { db } from "@/db";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default async function Home() {
+  // 3 - Resgatando dados do banco
+  const todos = await db.todo.findMany()
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start text-white">
-       <Link href={"/todos/create"}>Ir para criação de todo</Link>
-      </main>
-    </div>
+        <Link href={"/todos/create"}>Ir para criação de todo</Link>
+        <h1>Todos!</h1>
+        <div className="space-y-4 w-full">
+          {todos.map(todo => (
+            <div key={todo.id} className="bg-gray-800 rounded-lg shadow p-4 w-full">
+              <p className="text-xl font-bold">{todo.titulo}</p>
+              <p className="text-gray-400">{todo.descricao}</p>
+              <p className={`flex flex-row justify-end ${todo.status === "pendente" ? "text-red-700" : "text-green-500"}`}>{todo.status}</p>
+            </div>
+          ))}
+        </div>
+      </main >
+    </div >
   );
 }
