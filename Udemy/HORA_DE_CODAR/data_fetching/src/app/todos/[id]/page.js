@@ -3,6 +3,7 @@ import { db } from '../../../db'
 import React from 'react'
 
 const TodoPage = async ({ params }) => {
+    await new Promise((a) => setTimeout(a, 1000))
 
     const { id } = await params
 
