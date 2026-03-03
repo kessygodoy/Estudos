@@ -1,30 +1,9 @@
 import React from 'react'
 import { db } from "@/db"
 import { redirect } from 'next/navigation'
+import { addTodo } from '@/actions'
 
 const TodoPage = () => {
-
-    //formData => seria quase a mesma coisa do useState
-    const addTodo = async (formData) => {
-        "use server"
-        // 2 - Inserir no banco de dados
-        const titulo = formData.get("titulo")
-        const descricao = formData.get("descricao")
-        const status = "pendente"
-
-        console.log(titulo, descricao);
-
-        const todo = await db.todo.create({
-            data: {
-                titulo,
-                descricao,
-                status
-            }
-        })
-
-        console.log(todo)
-        redirect("/")
-    }
 
     return (
         <div className='max-w-md mx-auto mt-10'>
