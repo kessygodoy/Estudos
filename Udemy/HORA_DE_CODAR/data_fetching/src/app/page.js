@@ -34,7 +34,7 @@ export default async function Home() {
                 </div>
                 <div className="flex space-x-2 my-auto flex-col w-25">
                   <Link href={`/todos/${todo.id}`} className="bg-gray-500 px-2  w-full m-1 text-center rounded-md text-white font-bold">Visualizar</Link>
-                  <Link href={`/todos/${todo.id}`} className="bg-gray-500 px-2  w-full m-1 text-center rounded-md text-white font-bold">Editar</Link>
+                  <Link href={`/todos/${todo.id}/edit`} className="bg-gray-500 px-2  w-full m-1 text-center rounded-md text-white font-bold">Editar</Link>
                   <form action={deleteTodo}>
                     <input type="hidden" name="id" value={todo.id} />
                     <Button>Excluir</Button>
