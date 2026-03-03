@@ -1,10 +1,10 @@
-import { getTodoById } from '@/actions';
+import { findTodoById } from '@/actions';
 import React from 'react'
 
 const TodoEdit = async ({ params }) => {
-    const id = Number(params.id);
+    const { id } = await params;
 
-    const todo = await getTodoById(id)
+    const todo = await findTodoById(id)
 
     return (
         <div>

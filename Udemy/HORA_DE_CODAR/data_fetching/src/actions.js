@@ -30,10 +30,10 @@ export const addTodo = async (formData) => {
     redirect("/")
 }
 
-export async function getTodoById(id) {
-    const todo = await db.todo.findUnique({
+export const findTodoById = async (id) => {
+    const todo = await db.todo.findFirst({
         where: {
-            id: id
+            id: Number(id)
         }
     })
     return todo
