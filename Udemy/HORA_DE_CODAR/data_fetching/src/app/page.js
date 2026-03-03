@@ -1,10 +1,23 @@
+import Button from "@/components/Button";
 import { db } from "@/db";
 import Image from "next/image";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
   // 3 - Resgatando dados do banco
   const todos = await db.todo.findMany()
+
+  async function deleteTodo(formData) {
+    "use server"
+    const id = Number(formData.get("id"))
+    await db.todo.delete({
+      where: {
+        id: id
+      }
+    })
+    redirect("/")
+  }
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans">
       <main className="flex min-h-screen w-full max-w-3xl flex-col items-center py-32 px-16  sm:items-start">
@@ -21,7 +34,10 @@ export default async function Home() {
                 <div className="flex space-x-2 my-auto flex-col w-25">
                   <Link href={`/todos/${todo.id}`} className="bg-gray-500 px-2  w-full m-1 text-center rounded-md text-white font-bold">Visualizar</Link>
                   <Link href={`/todos/${todo.id}`} className="bg-gray-500 px-2  w-full m-1 text-center rounded-md text-white font-bold">Editar</Link>
-                  <Link href={`/todos/${todo.id}`} className="bg-red-500 px-2  w-full m-1 text-center rounded-md text-white font-bold">Excluir</Link>
+                  <form action={deleteTodo}>
+                    <input type="hidden" name="id" value={todo.id} />
+                    <Button>Excluir</Button>
+                  </form>
                 </div>
               </div>
 

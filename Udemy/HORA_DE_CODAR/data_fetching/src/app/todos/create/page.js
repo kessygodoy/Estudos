@@ -23,6 +23,7 @@ const TodoPage = () => {
         })
 
         console.log(todo)
+        redirect("/")
     }
 
     return (
