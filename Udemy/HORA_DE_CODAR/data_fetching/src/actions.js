@@ -38,3 +38,29 @@ export const findTodoById = async (id) => {
     })
     return todo
 }
+
+
+export const updateTodo = async (formState, formData) => {
+    const id = formData.get("id")
+    const titulo = formData.get("titulo")
+    const descricao = formData.get("descricao")
+
+    if (titulo.length < 3) {
+        return { errors: "Titulo deve ter pelo menos 3 caracteres" }
+    }
+
+    if (descricao.length < 10) {
+        return { errors: "Descricao deve ter pelo menos 10 caracteres" }
+    }
+
+    await db.todo.update({
+        where: {
+            id: Number(id)
+        },
+        data: {
+            titulo,
+            descricao
+        }
+    })
+    redirect(`/todos/${id}`)
+}

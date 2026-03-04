@@ -1,4 +1,5 @@
 import { findTodoById } from '@/actions';
+import TodoForm from '@/components/TodoForm';
 import React from 'react'
 
 const TodoEdit = async ({ params }) => {
@@ -10,6 +11,7 @@ const TodoEdit = async ({ params }) => {
         <div>
             <h1>Editando: {todo.titulo}</h1>
             {/* { form } */}
+            <TodoForm todo={todo} />
         </div>
     )
 }
