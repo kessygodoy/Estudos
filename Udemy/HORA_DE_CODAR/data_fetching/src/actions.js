@@ -31,7 +31,6 @@ export const addTodo = async (formData) => {
 }
 
 export const findTodoById = async (id) => {
-    throw new Error("Ops!")
     const todo = await db.todo.findFirst({
         where: {
             id: Number(id)
@@ -46,22 +45,27 @@ export const updateTodo = async (formState, formData) => {
     const titulo = formData.get("titulo")
     const descricao = formData.get("descricao")
 
-    if (titulo.length < 3) {
-        return { errors: "Titulo deve ter pelo menos 3 caracteres" }
-    }
-
-    if (descricao.length < 10) {
-        return { errors: "Descricao deve ter pelo menos 10 caracteres" }
-    }
-
-    await db.todo.update({
-        where: {
-            id: Number(id)
-        },
-        data: {
-            titulo,
-            descricao
+    try {
+        if (titulo.length < 3) {
+            return { errors: "Titulo deve ter pelo menos 3 caracteres" }
         }
-    })
-    redirect(`/todos/${id}`)
+
+        if (descricao.length < 10) {
+            return { errors: "Descricao deve ter pelo menos 10 caracteres" }
+        }
+
+        await db.todo.update({
+            where: {
+                id: Number(id)
+            },
+            data: {
+                titulo,
+                descricao
+            }
+        })
+        redirect(`/todos/${id}`)
+
+    } catch (error) {
+        throw new Error("Ops!")
+    }
 }
