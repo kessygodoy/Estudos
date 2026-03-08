@@ -1,5 +1,6 @@
 "use server"
 
+import { revalidatePath } from "next/cache"
 import { db } from "./db"
 import { redirect } from "next/navigation"
 
@@ -10,6 +11,9 @@ export const deleteTodo = async (formData) => {
             id: id
         }
     })
+
+    revalidatePath("/")
+    // revalidate faz com que o cache seja invalidado e a pagina seja renderizada novamente
     redirect("/")
 }
 
@@ -26,7 +30,7 @@ export const addTodo = async (formData) => {
             status
         }
     })
-
+    revalidatePath("/")
     redirect("/")
 }
 

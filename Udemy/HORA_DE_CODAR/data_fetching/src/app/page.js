@@ -6,8 +6,9 @@ import Link from "next/link";
 // export const revalidate = 20;
 //com esse export o next vai revalidar a pagina(cache) a cada 20 segundos
 
-export const dynamic = "force-dynamic"
+// export const dynamic = "force-dynamic"
 //exportando force-dynamic o next vai revalidar a pagina(cache) a cada requisição
+
 
 export default async function Home() {
   // 3 - Resgatando dados do banco
