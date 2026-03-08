@@ -1,8 +1,8 @@
 "use client"
 
-const Button = ({ children }) => {
+const Button = ({ children, className }) => {
     return (
-        <button className="bg-gray-500 px-2  w-full m-1 text-center rounded-md text-white font-bold">{children}</button>
+        <button className={className}>{children}</button>
     )
 }
 

@@ -73,3 +73,27 @@ export const updateTodo = async (formState, formData) => {
         throw new Error("Ops!")
     }
 }
+export async function toggleTodoStatus(formData) {
+    const todoId = Number(formData.get("id"))
+
+    const todo = await db.todo.findFirst({
+        where: { id: todoId }
+    })
+
+    if (!todo) {
+        throw new Error("Todo não existe!")
+    }
+
+    const novoStatus = todo.status === "pendente" ? "completa" : "pendente";
+
+    await db.todo.update({
+        where: {
+            id: todoId
+        },
+        data: {
+            status: novoStatus
+        }
+    })
+    revalidatePath("/")
+    redirect("/")
+}
