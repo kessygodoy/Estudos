@@ -1,7 +1,7 @@
 <h3>Sobre Nós (VIEW)</h3>
 
 <ul>
-    <li><a href="/">Principal</a></li>
-    <li><a href="/sobre-nos">Sobre Nós</a></li>
-    <li><a href="/contato">Contato</a></li>
+    <li><a href="{{ route('site.principal') }}">Principal</a></li>
+    <li><a href="{{ route('site.sobre-nos') }}">Sobre Nós</a></li>
+    <li><a href="{{ route('site.contato') }}">Contato</a></li>
 </ul>

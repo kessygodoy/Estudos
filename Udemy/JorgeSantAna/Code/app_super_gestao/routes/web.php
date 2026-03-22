@@ -6,24 +6,25 @@ use Illuminate\Support\Facades\Route;
 //     return "Olá seja bem vindo ao curso";
 // });
 
-Route::get('/', [\App\Http\Controllers\PrincipalController::class , 'principal']);
-
-Route::get('/sobre-nos', [\App\Http\Controllers\SobreNosController::class , 'sobreNos']);
-
-Route::get('/contato', [App\Http\Controllers\ContatoController::class , 'contato']);
-
+Route::get('/', [\App\Http\Controllers\PrincipalController::class , 'principal'])->name('site.principal');
+Route::get('/sobre-nos', [\App\Http\Controllers\SobreNosController::class , 'sobreNos'])->name('site.sobre-nos');
+Route::get('/contato', [App\Http\Controllers\ContatoController::class , 'contato'])->name('site.contato');
 Route::get("/login", function () {
     return "Login";
 });
 
-Route::get("/clientes", function () {
-    return "Clientes";
-});
-
-Route::get("/fornecedores", function () {
-    return "Fornecedores";
-});
-
-Route::get("/produtos", function () {
-    return "Produtos";
-});
+//app
+Route::prefix('app')->group(function () {
+    Route::get("/clientes", function () {
+            return "Clientes";
+        }
+        )->name('app.clientes');
+        Route::get("/fornecedores", function () {
+            return "Fornecedores";
+        }
+        )->name('app.fornecedores');
+        Route::get("/produtos", function () {
+            return "Produtos";
+        }
+        )->name('app.produtos');
+    });
