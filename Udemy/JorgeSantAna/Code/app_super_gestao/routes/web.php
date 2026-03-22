@@ -28,3 +28,13 @@ Route::prefix('app')->group(function () {
         }
         )->name('app.produtos');
     });
+
+Route::get('/rota1', function () {
+    echo "<h1>Rota 1</h1>";
+})->name('site.rota1');
+
+// Route::get('/rota2', function () {
+//     echo "<h1>Rota 2</h1>";
+// })->name('site.rota2');
+
+Route::redirect('rota2', 'rota1');
