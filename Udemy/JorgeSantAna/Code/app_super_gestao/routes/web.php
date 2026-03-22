@@ -37,4 +37,6 @@ Route::get('/rota2', function () {
     return redirect()->route('site.rota1');
 })->name('site.rota2');
 
-// Route::redirect('rota2', 'rota1');
+Route::fallback(function () {
+    return redirect()->route('site.principal');
+});
