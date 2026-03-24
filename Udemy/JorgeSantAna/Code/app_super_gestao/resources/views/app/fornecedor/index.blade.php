@@ -26,13 +26,15 @@
     @endif
     <br>
     @isset($fornecedores[0]['cnpj'])
-        @foreach($fornecedores as $indice => $fornecedor)
+        @forelse($fornecedores as $indice => $fornecedor)
             CNPJ: {{ $fornecedor['cnpj'] ?? 'Dado não foi preenchido'}}
             <br>
             Telefone: {{ $fornecedor['ddd'] . ' - ' . $fornecedor['telefone'] ?? 'Dado não foi preenchido'}}
             <hr>
             <hr>
-        @endforeach
+        @empty
+            Não existem fornecedores cadastrados
+        @endforelse
     @endisset
     <br>
 
