@@ -6,6 +6,7 @@
  
 {{-- @dd($fornecedores) --}}
 
+@isset($fornecedores) <!-- verifica se a variavel existe -->
 @if(count($fornecedores) >0 && count($fornecedores) <=10)
     <h3>Existem alguns fornecedores cadastrados</h3>
 @elseif(count($fornecedores) > 10)
@@ -14,17 +15,22 @@
     <h3>Nenhum fornecedor cadastrado</h3>
 @endif
 
-Fornecedor: {{ $fornecedores[0]['nome'] }}
+
+Fornecedor: {{ $fornecedores[1]['nome'] }}
 <br>
-Status: {{ $fornecedores[0]['status'] }}
-@if( !($fornecedores[0]['status'] == 'S'))
+Status:
+@if( !($fornecedores[1]['status'] == 'S'))
     Inativo
 @else
     Ativo
 @endif
+<br>
+@isset($fornecedores[0]['cnpj'])
+    CNPJ: {{ $fornecedores[0]['cnpj'] }}
+    @empty($fornecedores[0]['cnpj'])
+        Não informado
+    @endempty
+@endisset
 
-@unless($fornecedores[0]['status'] == 'S')
-    Inativo
-@else
-    Ativo
-@endunless
+@endisset
+
