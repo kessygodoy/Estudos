@@ -16,17 +16,18 @@
     @endif
 
 
-    Fornecedor: {{ $fornecedores[1]['nome'] }}
-    <br>
-    Status:
-    @if(!($fornecedores[1]['status'] == 'S'))
-        Inativo
-    @else
-        Ativo
-    @endif
     <br>
     @isset($fornecedores[0]['cnpj'])
         @forelse($fornecedores as $indice => $fornecedor)
+            Fornecedor: {{ $fornecedor['nome'] }}
+            <br>
+            Status:
+            @if(!($fornecedor['status'] == 'S'))
+                Inativo
+            @else
+                Ativo
+            @endif
+            <br>
             CNPJ: {{ $fornecedor['cnpj'] ?? 'Dado não foi preenchido'}}
             <br>
             Telefone: {{ $fornecedor['ddd'] . ' - ' . $fornecedor['telefone'] ?? 'Dado não foi preenchido'}}
