@@ -26,29 +26,18 @@ Status:
 @endif
 <br>
 @isset($fornecedores[0]['cnpj'])
-    CNPJ: {{ $fornecedores[1]['cnpj'] ?? 'Dado não foi preenchido'}}
+
+    @for($i = 0; $i < count($fornecedores); $i++)
+    CNPJ: {{ $fornecedores[$i]['cnpj'] ?? 'Dado não foi preenchido'}}
     <br>
-    Telefone: {{ $fornecedores[1]['ddd'] . ' - ' . $fornecedores[1]['telefone'] ?? 'Dado não foi preenchido'}}
-    @switch($fornecedores[3]['ddd'])
-        @case('11')
-            São Paulo - SP
-            @break
-        @case('14')
-            Bauru - SP
-            @break
-        @case('85')
-            Fortaleza - CE
-            @break
-        @case('32')
-            Juiz de Fora - MG
-            @break
-        @case('47')
-            Joinville - SC
-            @break
-        @default
-            DDD não identificado
-    @endswitch
+    Telefone: {{ $fornecedores[$i]['ddd'] . ' - ' . $fornecedores[$i]['telefone'] ?? 'Dado não foi preenchido'}}
+    @endfor
 @endisset
 
 @endisset
 
+<br>
+
+
+    {{ $i }}<br>
+  
