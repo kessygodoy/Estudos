@@ -9,7 +9,7 @@ class FornecedorController extends Controller
     public function index()
     {
         $fornecedores = [
-            0 => ['nome' => 'Fornecedor 1', 'site' => 'www.fornecedor1.com.br', 'status'=> 'S', 'cnpj' => ''],
+            0 => ['nome' => 'Fornecedor 1', 'site' => 'www.fornecedor1.com.br', 'status'=> 'S', 'cnpj' => '561645656561'],
             1 => ['nome' => 'Fornecedor 2', 'site' => 'www.fornecedor2.com.br', 'status'=> 'N'],
             2 => ['nome' => 'Fornecedor 3', 'site' => 'www.fornecedor3.com.br', 'status'=> 'S', 'cnpj' => '00.000.000/0001-00'],
             3=> ['nome'=> 'Fornecedor 4', 'site'=> 'www.fornecedor4.com.br', 'status'=> 'N', 'cnpj' => '00.000.000/0001-00'],

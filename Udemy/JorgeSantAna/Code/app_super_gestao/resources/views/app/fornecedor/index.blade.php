@@ -26,13 +26,13 @@ Status:
 @endif
 <br>
 @isset($fornecedores[0]['cnpj'])
-    CNPJ: {{ $fornecedores[0]['cnpj'] }}
-    @empty($fornecedores[0]['cnpj'])
+    CNPJ: {{ $fornecedores[1]['cnpj'] ?? 'Dado não foi preenchido'}}
+    {{-- @empty($fornecedores[0]['cnpj'])
         Não informado
-    @endempty
+    @endempty --}}
 @endisset
 
 @endisset
 
-{{ $fornecedores[0]['cnpj'] ?'Não informado' : 'CNPJ informado' }}
+{{-- {{ $fornecedores[0]['cnpj'] ? 'Não informado' : 'CNPJ informado' }} --}}
 
