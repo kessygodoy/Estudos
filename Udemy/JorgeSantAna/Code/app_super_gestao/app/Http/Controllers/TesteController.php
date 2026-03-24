@@ -10,7 +10,6 @@ class TesteController extends Controller
     {
         // echo "A soma de $p1 + $p2 é: " . ($p1 + $p2);
         // return view('site.teste', ['p1' => $p1, 'p2' => $p2]);
-        // return view('site.teste', compact('p1', 'p2')); //COMPACT devolve a msm coisa de criar o array de forma facilitada
-        return view('site.teste')->with('p1', $p1)->with('p2', $p2); //WITH é pouco usado
+        return view('site.teste', compact('p1', 'p2')); //COMPACT devolve a msm coisa de criar o array de forma facilitada
     }
 }

@@ -19,10 +19,8 @@ Route::prefix('app')->group(function () {
             return "Clientes";
         }
         )->name('app.clientes');
-        Route::get("/fornecedores", function () {
-            return "Fornecedores";
-        }
-        )->name('app.fornecedores');
+        Route::get("/fornecedores", [App\Http\Controllers\FornecedorController::class , 'index'])->name('app.fornecedores');
+        //chama o metodo index do controller FornecedorController
         Route::get("/produtos", function () {
             return "Produtos";
         }
