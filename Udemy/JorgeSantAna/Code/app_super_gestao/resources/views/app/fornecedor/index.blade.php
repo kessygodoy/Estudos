@@ -34,3 +34,5 @@ Status:
 
 @endisset
 
+{{ $fornecedores[0]['cnpj'] ?'Não informado' : 'CNPJ informado' }}
+
