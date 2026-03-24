@@ -13,3 +13,18 @@
 @else
     <h3>Nenhum fornecedor cadastrado</h3>
 @endif
+
+Fornecedor: {{ $fornecedores[0]['nome'] }}
+<br>
+Status: {{ $fornecedores[0]['status'] }}
+@if( !($fornecedores[0]['status'] == 'S'))
+    Inativo
+@else
+    Ativo
+@endif
+
+@unless($fornecedores[0]['status'] == 'S')
+    Inativo
+@else
+    Ativo
+@endunless
