@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Il6uminate\Http\Request;
+use Illuminate\Http\Request;
 
 class PrincipalController extends Controller
 {

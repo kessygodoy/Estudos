@@ -19,6 +19,7 @@
     <br>
     @isset($fornecedores[0]['cnpj'])
         @forelse($fornecedores as $indice => $fornecedor)
+            Iteração atual: {{ $loop->iteration }}
             Fornecedor: {{ $fornecedor['nome'] }}
             <br>
             Status:
@@ -31,7 +32,16 @@
             CNPJ: {{ $fornecedor['cnpj'] ?? 'Dado não foi preenchido'}}
             <br>
             Telefone: {{ $fornecedor['ddd'] . ' - ' . $fornecedor['telefone'] ?? 'Dado não foi preenchido'}}
-            <hr>
+
+            @if($loop->first)
+                Primeira iteração
+            @endif
+            @if($loop->last)
+                Última iteração do loop
+                <br>
+                Total de registros: {{ $loop->count }}
+
+            @endif
             <hr>
         @empty
             Não existem fornecedores cadastrados
